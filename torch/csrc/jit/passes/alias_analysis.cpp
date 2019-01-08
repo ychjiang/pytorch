@@ -804,7 +804,10 @@ class AliasDb::WorkingSet {
 };
 
 // Try to move `this` before/after `movePoint` while preserving value
-// dependencies. Returns false iff such a move could not be made
+// dependencies. Returns false iff such a move could not be made.
+//
+// If `dryRun` is set, don't actually execute the move, just check if the move
+// is possible
 //
 // The basic approach is: have a "working set" that we are moving forward, one
 // node at a time. When we can't move past a node (because it depends on the
