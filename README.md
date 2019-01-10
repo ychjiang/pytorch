@@ -17,7 +17,8 @@ English： This project focus on pytorch backword souce code, try to know how is
 ## Method
 
  中文：深入pytorch的底层代码，从C/C++角度探索pytorch具体的数据处理操作方式。包括卷积的C++计算代码，调用LAPACK的方式等基本操作。
- English：we focus on the pytorch backward source code find the operate of basic data(THTensor),such as Tensor convolution,call LAPACK   library.
+ 
+ English：we focus on the pytorch backward source code find the operate of basic data(THTensor),such as Tensor convolution,call LAPACK               library.
 
 ## License
 
