@@ -245,6 +245,20 @@ static void THDiskFile_close(THFile *self)
 }
 
 /* Little and Big Endian */
+/*什么是大端模式小端模式？
+  给定数据0x12345678
+  1.大端模式是低位字节放在高位地址中，就是正常的想法
+    低地址 >>>> 高地址 
+    0x12 0x34 0x56 0x78
+  2.小端模式是低位字节放在低位地址中
+    低地址 >>>> 高地址 
+    0x78 0x56 0x34 0x12
+  3.注意一个字节内部还是有顺序的
+ */
+//如何判断是大端存储还是小端存储？
+//设定一个指针指向整型数字7(0111)
+//如果第一个值是0，那么式小端模式，也就是常见的模式
+//反之是大端模式 
 
 static void THDiskFile_reverseMemory(void *dst, const void *src, ssize_t blockSize, ssize_t numBlocks)
 {
