@@ -1,6 +1,9 @@
 #ifndef TH_TENSOR_APPLY_INC
 #define TH_TENSOR_APPLY_INC
 
+//遍历TH内部的元素
+//通过宏定义写的函数 比较晦涩难懂
+//实际上就是循环遍历查找
 /*
  * The basic strategy for apply is as follows:
  *

@@ -9,7 +9,14 @@
 #if ATOMIC_INT_LOCK_FREE == 2
 #define TH_ATOMIC_IPC_REFCOUNT 1
 #endif
-
+/*文件中主要设计出2个内存开辟的方案
+// 1.默认的开辟方案，采用默认的malloc/free方案进行内存开辟和释放。
+     采用final，在C++11中，对于一个类加上final表示类无法继续继承，\
+     是最终实现，对函数加final表示无法重写
+   2.提供了一个THMapAllocator类，内置两个开辟函数，先对输入参数做检测\
+     接下来通过unix内核函数mmap开辟内存。
+   
+*/
 #if HAVE_MMAP
 #include <sys/types.h>
 #include <sys/mman.h>
@@ -18,7 +25,7 @@
 #include <unistd.h>
 #endif
 /* end of stuff for mapped files */
-
+//默认的内存开辟方案
 struct THDefaultAllocator final : public at::Allocator {
   at::DataPtr allocate(size_t size) const override {
     auto* ptr = THAlloc(size);
@@ -46,6 +53,7 @@ const char * unknown_filename = "filename not specified";
 #ifdef _WIN32
 const char * unknown_eventname = "eventname not specified";
 #endif
+
 
 THMapAllocator::THMapAllocator(WithFd, const char *filename, int fd, int flags, size_t size)
   : filename_(filename ? filename : unknown_filename)

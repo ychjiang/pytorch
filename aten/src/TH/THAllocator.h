@@ -25,6 +25,8 @@ typedef struct at_THAllocator THAllocator;
 /* default malloc/free allocator. malloc and realloc raise an error (using
  * THError) on allocation failure.
  */
+ //默认的内存开辟方式
+ //具体的实现方式是调用THAlloc()最终使用malloc/free来实现内存的开辟和释放
 TH_API THAllocator* getTHDefaultAllocator(void);
 
 #ifdef __cplusplus

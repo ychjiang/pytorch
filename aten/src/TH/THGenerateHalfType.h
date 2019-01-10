@@ -1,7 +1,7 @@
 #ifndef TH_GENERIC_FILE
 #error "You must define TH_GENERIC_FILE before including THGenerateHalfType.h"
 #endif
-
+//float 转成at::half 
 #include <TH/THHalf.h>
 #define scalar_t THHalf
 #define accreal float

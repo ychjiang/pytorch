@@ -2,7 +2,8 @@
 #define TH_LAPACK_INC
 
 #include <TH/THGeneral.h>
-
+//这里的宏定义 
+//具体的实现方法在generic文件夹中
 #define THLapack_(NAME) TH_CONCAT_4(TH,Real,Lapack_,NAME)
 
 #define THLapackCheck(fmt, func, info , ...)						\

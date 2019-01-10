@@ -1,7 +1,7 @@
 #ifndef TH_GENERIC_FILE
 #error "You must define TH_GENERIC_FILE before including THGenerateByteType.h"
 #endif
-
+//做一些宏定义 就是类型的转换
 #define scalar_t uint8_t
 #define ureal uint8_t
 #define accreal int64_t

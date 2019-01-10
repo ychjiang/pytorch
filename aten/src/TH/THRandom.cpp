@@ -6,7 +6,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #endif
-
+//TH随机数生成的具体方法
+//THRandom_random产生基本的随随机数
 /* Code for the Mersenne Twister random generator.... */
 #define n _MERSENNE_STATE_N
 #define m _MERSENNE_STATE_M

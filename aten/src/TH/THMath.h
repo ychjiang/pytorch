@@ -5,7 +5,8 @@
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-
+//TH中，数学函数的实现
+//上层的操作可转移到generic的math代码文件中
 #ifndef M_PIf
 #define M_PIf 3.1415926535f
 #endif  // M_PIf

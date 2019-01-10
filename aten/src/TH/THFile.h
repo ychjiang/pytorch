@@ -1,6 +1,6 @@
 #ifndef TH_FILE_INC
 #define TH_FILE_INC
-
+//文件的操作函数
 #include <TH/THStorageFunctions.h>
 
 typedef struct THFile__ THFile;
