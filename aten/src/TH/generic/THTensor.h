@@ -8,8 +8,12 @@
 #include <c10/core/TensorImpl.h>
 #endif
 
+/*
+  这里的Thtensor实际上是 pytorch/c10/core/TensorImpl.cpp中的TensorImpl宏定义 
+
+*/
 #ifdef __cplusplus
-#define THTensor at::TensorImpl
+#define THTensor at::TensorImpl  
 #else
 typedef struct at_Tensor_Impl at_Tensor_Impl;
 #define THTensor at_Tensor_Impl
@@ -17,6 +21,11 @@ typedef struct at_Tensor_Impl at_Tensor_Impl;
 
 // These used to be distinct types; for some measure of backwards compatibility and documentation
 // alias these to the single THTensor type.
+/*
+  TH的核心代码模块，创建新的THTensor以及Tensor的基本操作函数声明
+*/
+
+//首先是宏定义  定义一些Tensor的基本数据类型
 #define THFloatTensor THTensor
 #define THDoubleTensor THTensor
 #define THHalfTensor THTensor
@@ -26,7 +35,10 @@ typedef struct at_Tensor_Impl at_Tensor_Impl;
 #define THIntTensor THTensor
 #define THLongTensor THTensor
 
+
 /**** access methods ****/
+//Tensor的访问方法
+
 TH_API THStorage* THTensor_(storage)(const THTensor *self);
 TH_API ptrdiff_t THTensor_(storageOffset)(const THTensor *self);
 

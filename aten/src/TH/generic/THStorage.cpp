@@ -4,6 +4,8 @@
 
 #include <new>
 
+//THStorage的实现方案，通过调用 .data .elementSize()获取TH的信息
+
 scalar_t* THStorage_(data)(const THStorage *self)
 {
   return self->data<scalar_t>();
@@ -24,6 +26,8 @@ THStorage* THStorage_(new)(void)
   return THStorage_new(caffe2::TypeMeta::Make<scalar_t>());
 }
 
+//创建一个指定大小的TH  输入一个 size
+//执行默认的 getTHDefaultAllocator指向THAlloc到达malloc/free
 THStorage* THStorage_(newWithSize)(ptrdiff_t size)
 {
   THStorage* storage = c10::make_intrusive<at::StorageImpl>(
@@ -33,6 +37,9 @@ THStorage* THStorage_(newWithSize)(ptrdiff_t size)
       true).release();
   return storage;
 }
+
+//自定义开辟模式
+//具体的内存开辟模式参考 ../THStorage.cpp
 
 THStorage* THStorage_(newWithAllocator)(ptrdiff_t size,
                                         at::Allocator *allocator)
@@ -45,7 +52,8 @@ THStorage* THStorage_(newWithAllocator)(ptrdiff_t size,
   return storage;
 }
 
-
+//利用Maping模式开辟内存 最终使用Unix的mmap开辟内存空间
+//开辟细节参考 ../THStorage.cpp
 THStorage* THStorage_(newWithMapping)(const char *filename, ptrdiff_t size, int flags)
 {
   auto type_meta = caffe2::TypeMeta::Make<scalar_t>();
@@ -65,6 +73,7 @@ THStorage* THStorage_(newWithMapping)(const char *filename, ptrdiff_t size, int 
   return storage;
 }
 
+//利用上面的函数继续得到新的开辟功能
 THStorage* THStorage_(newWithSize1)(scalar_t data0)
 {
   THStorage *self = THStorage_(newWithSize)(1);

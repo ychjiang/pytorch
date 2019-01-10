@@ -1,11 +1,18 @@
 #ifndef TH_GENERIC_FILE
 #define TH_GENERIC_FILE "TH/generic/THTensor.cpp"
 #else
-
+/*
+  核心代码
+  THTensor中，Tensor的基本操作函数定义文件
+*/
 #include <ATen/InferSize.h>
 #include <new>
 
+
 /**** access methods ****/
+//Tensor的基本操作
+
+//获取Tensor存储位置的指针
 THStorage *THTensor_(storage)(const THTensor *self)
 {
   return THTensor_getStoragePtr(self);
@@ -16,11 +23,13 @@ ptrdiff_t THTensor_(storageOffset)(const THTensor *self)
   return self->storage_offset();
 }
 
+//返回Tensor的维度
 int THTensor_(nDimension)(const THTensor *self)
 {
   return THTensor_nDimension(self);
 }
 
+//先进行合法性检查再返回维度 
 int THTensor_(nDimensionLegacyNoScalars)(const THTensor *self)
 {
   return THTensor_nDimensionLegacyNoScalars(self);
@@ -31,6 +40,8 @@ int THTensor_(nDimensionLegacyAll)(const THTensor *self)
   return THTensor_nDimensionLegacyAll(self);
 }
 
+//返回Tensor上指定维度的大小 
+//如：NCHW, dim=1时，返回channel的大小
 int64_t THTensor_(size)(const THTensor *self, int dim)
 {
   THArgCheck((dim >= 0) && (dim < self->dim()), 2, "dimension %d out of range of %dD tensor",
@@ -38,6 +49,9 @@ int64_t THTensor_(size)(const THTensor *self, int dim)
   return self->size(dim);
 }
 
+//返回指定维度的stride
+//如：A[2,3,4] 那么 当dim=0时，返回的是第一维度的stride = 3*4 = 12，也就是说如果连续存储，经过12个存储空间才能索引
+//    到第一维度，其他的顺次
 int64_t THTensor_(stride)(const THTensor *self, int dim)
 {
   THArgCheck((dim >= 0) && (dim < self->dim()), 2, "dimension %d out of range of %dD tensor",
@@ -50,8 +64,9 @@ scalar_t *THTensor_(data)(const THTensor *self) {
 }
 
 /**** creation methods ****/
-
+//Tensor的创建 
 /* Empty init */
+//调用THStorage_生成一个新的空Tensor，也就是返回一个空指针
 THTensor *THTensor_(new)(void)
 {
   return c10::make_intrusive<at::TensorImpl, at::UndefinedTensorImpl>(
@@ -62,6 +77,7 @@ THTensor *THTensor_(new)(void)
 }
 
 /* Pointer-copy init */
+//利用已有的Tensor创建新的Tensor
 THTensor *THTensor_(newWithTensor)(THTensor *tensor)
 {
   THTensor *self = c10::make_intrusive<at::TensorImpl, at::UndefinedTensorImpl>(

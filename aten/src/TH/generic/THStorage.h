@@ -5,6 +5,11 @@
 #ifdef __cplusplus
 #include <ATen/Allocator.h>
 #include <c10/core/StorageImpl.h>
+
+/*
+   TH的核心文件，TH的存储操作函数声明
+   
+*/
 #endif
 
 /* on pourrait avoir un liste chainee
@@ -32,6 +37,7 @@ typedef struct at_Storage_Impl at_Storage_Impl;
 
 // These used to be distinct types; for some measure of backwards compatibility and documentation
 // alias these to the single THStorage type.
+//定义出不同类型的存储方案  实际上指向的都是一个变量 最终指向 --> at::StorageImpl 
 #define THFloatStorage THStorage
 #define THDoubleStorage THStorage
 #define THHalfStorage THStorage
